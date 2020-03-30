@@ -1,0 +1,15 @@
+---
+- name: INSTALLING NFS PKGS AND CONFIGURING FILES
+  hosts: server1,server3
+  become: true
+
+  tasks:
+    - name: installing pkgs
+      yum:
+        name: "nfs-utils"
+        state: latest
+
+    - name: modifing the fstab file
+      blockinfile:
+        block: '192.168.1.202 /nfs-share nfs defaults 0 0'
+        path: /etc/fstab
